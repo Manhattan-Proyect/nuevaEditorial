@@ -8,6 +8,8 @@ use App\User;
 
 use Illuminate\Support\Facades\Auth;
 
+use App\Permiso;
+
 class ValidateAdminUserSignUp
 {
     /**
@@ -19,12 +21,18 @@ class ValidateAdminUserSignUp
      */
     public function handle($request, Closure $next)
     {
-        //$usersCount = User::count();
+        $usersCount = User::count();
         //dd(Auth::user()->permiso_id >= 2);
-        if (!Auth::guest() && Auth::user()->permiso_id < 2) {
+        if ($usersCount >= 1) {
+            if (!Auth::guest() && Auth::user()->permiso_id < 2) {
             return $next($request);
-
         }
+        }
+        else{
+            $permisos = Permiso::all();
+            return view('auth.register',['permisos'=>$permisos]);
+        }
+        
 
     return redirect("/");
 

@@ -63,7 +63,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //dd($data);
+         $usersCount = User::count();
+        //dd(Auth::user()->permiso_id >= 2);
+        if ($usersCount >= 1) {
         if (sizeof($data)>5) {
             return User::create([
             'name' => $data['name'],
@@ -78,6 +80,15 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'permiso_id' => 2,
+        ]);
+        }
+        }
+        else{
+            return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'permiso_id' => 1,
         ]);
         }
         
