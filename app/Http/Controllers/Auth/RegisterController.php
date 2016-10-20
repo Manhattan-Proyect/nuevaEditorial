@@ -6,6 +6,7 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Permiso;
 
 class RegisterController extends Controller
 {
@@ -64,6 +65,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
          $usersCount = User::count();
+         $permisos = Permiso::orderBy('nivel','asc')->get();
+         $menor = $permisos->first()->id;
+         $mayor = $permisos->last()->id;
         //dd(Auth::user()->permiso_id >= 2);
         if ($usersCount >= 1) {
         if (sizeof($data)>5) {
@@ -79,7 +83,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'permiso_id' => 2,
+            'permiso_id' => $mayor,
         ]);
         }
         }
@@ -88,7 +92,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'permiso_id' => 1,
+            'permiso_id' => $menor,
         ]);
         }
         
