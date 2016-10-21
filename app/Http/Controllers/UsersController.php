@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\User;
 
+use App\Permiso;
+
 class UsersController extends Controller
 {
     /**
@@ -65,7 +67,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $permisos = Permiso::all();
+       return view("users.edit",["user" => $user,"permisos"=>$permisos]);
     }
 
     /**

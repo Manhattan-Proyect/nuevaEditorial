@@ -3,10 +3,10 @@
 @section("content")
 
 	<div class="container white">
-		<h1>Editar Producto</h1>
+		<h1>Editar Usuario</h1>
 	
 
-		@include('products.form',['product' => $product,'url'=>'products/'.$product->id,'method'=>'PUT'])
+		@include('users.form',['user' => $user,'url'=>'users/'.$user->id,'method'=>'PUT'])
 	</div>
 
 @endsection
