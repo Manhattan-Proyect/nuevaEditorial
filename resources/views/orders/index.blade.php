@@ -8,7 +8,7 @@
 		
 		<div class="panel-heading">
 			
-		<h2>Dashboard</h2>
+		<h2>Tablero de Ventas</h2>
 
 		</div>
 

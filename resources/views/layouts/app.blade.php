@@ -66,7 +66,7 @@
 	                </div>
 	                <div id="navbar" class="navbar-collapse collapse" >
 	                    <ul class="nav navbar-nav navbar-right">
-	                        <li><a href="{{url('/carrito')}}">Mi Carrito "Logo"</a></li>
+	                        <li><a href="{{url('/carrito')}}">Mi Carrito <span class="glyphicon glyphicon-shopping-cart" /></a></li>
 	                        <li class="dropdown">
 	                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos<span class="caret"></span></a>
 	                            <ul class="dropdown-menu">
@@ -75,10 +75,27 @@
 	                            </ul>
 	                        </li>
 	                        <li class="dropdown">
-	                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi sesión <span class="caret"></span></a>
+	                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	                            @if(Auth::guest())
+	                            Sesion
+	                            @else
+	                            Bienvenido {{Auth::user()->name}}
+	                            @endif 
+	                            <span class="caret"></span></a>
 	                            <ul class="dropdown-menu">
+	                            @if(Auth::guest())
 	                                <li><a href="{{url('/login')}}">Iniciar sesión</a></li>
 	                                <li><a href="{{url('/register')}}">Registrar</a></li>
+	                            @else
+	                            	<li><a href="{{url('/orders')}}">Ver Estadisticas</a></li>
+	                                <li><a href="{{url('/register')}}">Registrar</a></li>
+	                                <li><a href="{{url('/logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Cerrar Sesion</a>
+
+	                                <form id="logout-form" action="{{url('logout')}}" method="POST" style="display: none;">
+										{{csrf_field()}}
+	                                </form></li>
+	                            @endif
+
 	                            </ul>
 	                        </li>
 	                    </ul>
